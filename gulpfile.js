@@ -82,6 +82,9 @@ gulp.task('watch', function() {
 });
 
 gulp.task('libs', function() {
+  // gulp.src(nm+'socket.io/**/*.*')
+  //     .pipe(gulp.dest('./builds/dist/public/libs/socket.io/'));
+
   gulp.src(bc+'jquery/dist/jquery.js')
       .pipe(gulp.dest('./builds/dist/public/libs/jquery/'));
 

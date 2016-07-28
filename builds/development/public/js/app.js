@@ -4,11 +4,34 @@
     var gameModule = (function(){
 
         var initModule,
-            tankPosition = {};
+            tankPosition = {},
+            socket = io.connect('http://localhost:3001');
 
         initModule = function(){
-          var level = new Level(levelPlan);
+
+            socketConnection();
+
+            var level = new Level(levelPlan);
+
+            //socket.emit('runGame', level);
+
+            addEventListener("keydown", function(event) {
+                if (event.keyCode === 39)
+                    Tank.prototype.runForward();
+                    var tankContainer = document.getElementsByClassName("tankContainer")[0];
+                    container.removeChild(tankContainer);
+                    var tank = new Tank(tankPosition);
+            });
+
+            addEventListener("keydown", function(event) {
+                if (event.keyCode === 37)
+                    Tank.prototype.runBackward();
+                    var tankContainer = document.getElementsByClassName("tankContainer")[0];
+                    container.removeChild(tankContainer);
+                    var tank = new Tank(tankPosition);
+            });
         }
+
 
         var levelPlan = [
             "wwwwwwwwwwwwwwwwwwwwwwwwwwww",   // (1)
@@ -76,13 +99,36 @@
         function Tank(tankPos) {
             this.posX = tankPos.posX;
             this.posY = tankPos.posY;
-            console.log(tankPos);
             var tankContainer = document.createElement("div");
             container.appendChild(tankContainer);
             tankContainer.className = "tankContainer";
             tankContainer.style.left = this.posX + "px";
             tankContainer.style.top = this.posY + "px";
 
+        }
+
+        Tank.prototype.runForward = function() {
+            //Tank.prototype.checkWay(levelPlan);
+            if (tankPosition.posX < 1180) {
+                tankPosition.posX = tankPosition.posX + 5;
+            }
+        }
+
+        Tank.prototype.runBackward = function() {
+            if (tankPosition.posX > 45  ) {
+                tankPosition.posX = tankPosition.posX - 5;
+            }
+        }
+
+        function socketConnection() {
+
+          socket.on('connect', function(){
+            //socket.emit('addme', prompt('Who are you?'));
+          });
+
+          socket.on('game', function(username, data){
+
+          });
         }
 
 

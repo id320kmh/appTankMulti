@@ -1,0 +1,22 @@
+{
+  "player1": {
+    "posX" : null,
+    "posY": null,
+    "course": null
+  },
+  "player2": {
+    "posX" : null,
+    "posY": null,
+    "course": null
+  },
+  "player3": {
+    "posX" : null,
+    "posY": null,
+    "course": null
+  },
+  "player4": {
+    "posX" : null,
+    "posY": null,
+    "course": null
+  }
+}
