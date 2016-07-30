@@ -5,6 +5,7 @@
 
         var initModule,
             tankPosition = {},
+            wayStatus = true,
             socket = io.connect('http://localhost:3001');
 
         initModule = function(){
@@ -96,6 +97,11 @@
             this.planObjPosY = planObjPosY*45;
         }
 
+        function ReversePosition(tankPos) {
+            this.planObjPosX = parseInt((tankPos.posX+50)/45);
+            this.planObjPosY = parseInt((tankPos.posY+35)/45);
+        }
+
         function Tank(tankPos) {
             this.posX = tankPos.posX;
             this.posY = tankPos.posY;
@@ -108,8 +114,8 @@
         }
 
         Tank.prototype.runForward = function() {
-            //Tank.prototype.checkWay(levelPlan);
-            if (tankPosition.posX < 1170) {
+            Tank.prototype.checkWay(levelPlan);
+            if (tankPosition.posX < 1170 && wayStatus === true) {
                 tankPosition.posX = tankPosition.posX + 5;
             }
         }
@@ -117,6 +123,13 @@
         Tank.prototype.runBackward = function() {
             if (tankPosition.posX > 45  ) {
                 tankPosition.posX = tankPosition.posX - 5;
+            }
+        }
+
+        Tank.prototype.checkWay = function(plan) {
+            var nextStep = new ReversePosition(tankPosition);
+            if (plan[nextStep.planObjPosY][nextStep.planObjPosX] === "w") {
+                wayStatus = false;
             }
         }
 
