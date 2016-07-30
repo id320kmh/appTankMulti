@@ -109,7 +109,7 @@
 
         Tank.prototype.runForward = function() {
             //Tank.prototype.checkWay(levelPlan);
-            if (tankPosition.posX < 1180) {
+            if (tankPosition.posX < 1170) {
                 tankPosition.posX = tankPosition.posX + 5;
             }
         }
